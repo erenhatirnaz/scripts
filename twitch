@@ -1,0 +1,29 @@
+#!/usr/bin/env ruby
+require 'http'
+require 'json'
+require 'inifile'
+
+config = IniFile.load(__dir__ + '/config.ini')
+
+client_id = config['twitch']['client_id']
+oauth_token = config['twitch']['oauth_token']
+
+response = HTTP.headers(accept: 'application/json', client_id: client_id)
+               .auth("OAuth #{oauth_token}")
+               .get('https://api.twitch.tv/kraken/streams/followed')
+response = JSON.parse(response.body, symbolize_names: true)
+
+total = response[:_total]
+
+puts "Total live stream: #{total}"
+puts
+printf "%-15s %-35s %s\n", 'Channel Name', 'Currently Playing', 'URL'
+printf "%-15s %-35s %s\n", '-' * 15, '-' * 35, '-' * 35
+
+response[:streams].each do |stream|
+  display_name = stream[:channel][:display_name]
+  game = stream[:game]
+  url = stream[:channel][:url]
+
+  printf "%-15s %-35s %s\n", display_name, game, url
+end

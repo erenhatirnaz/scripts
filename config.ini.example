@@ -1,0 +1,3 @@
+[twitch]
+client_id=[twich_app_id]
+oauth_token=[twitch_oauth_token]
