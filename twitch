@@ -23,6 +23,7 @@ printf "%-15s %-35s %s\n", '-' * 15, '-' * 35, '-' * 35
 response[:streams].each do |stream|
   display_name = stream[:channel][:display_name]
   game = stream[:game]
+  game = game[0..31] + '...' if game.length > 35
   url = stream[:channel][:url]
 
   printf "%-15s %-35s %s\n", display_name, game, url
