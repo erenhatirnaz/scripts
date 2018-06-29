@@ -9,3 +9,6 @@ gem "http", "~> 3.3"
 
 # Added at 2018-06-22 13:02:34 +0300 by erenhatirnaz:
 gem "inifile", "~> 3.0"
+
+# Added at 2018-06-28 23:02:18 +0300 by erenhatirnaz:
+gem "colorize", "~> 0.8.1"

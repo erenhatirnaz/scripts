@@ -2,6 +2,7 @@
 require 'http'
 require 'json'
 require 'inifile'
+require 'colorize'
 
 config = IniFile.load(__dir__ + '/config.ini')
 
@@ -15,10 +16,10 @@ response = JSON.parse(response.body, symbolize_names: true)
 
 total = response[:_total]
 
-puts "Total live stream: #{total}"
+puts "● Total live stream: #{total} ".red.on_white
 puts
-printf "%-15s %-35s %s\n", 'Channel Name', 'Currently Playing', 'URL'
-printf "%-15s %-35s %s\n", '-' * 15, '-' * 35, '-' * 35
+printf "%-15s %-35s %s\n".light_blue, 'Channel Name', 'Currently Playing', 'URL'
+printf "%-15s %-35s %s\n".light_blue, '-' * 15, '-' * 35, '-' * 35
 
 response[:streams].each do |stream|
   display_name = stream[:channel][:display_name]
